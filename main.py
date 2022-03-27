@@ -24,6 +24,7 @@ def check_queue(ctx,arg):
   if len(queue)!=0 and arg == 1:
     vc=ctx.voice_client
     source=queue.pop(0)
+    await ctx.send("En estos momentos esta sonando "+url)
     vc.play(source)
   elif len(queue)!=0 and arg == 0:
     return len(queue)
@@ -75,7 +76,6 @@ async def coloque(ctx,*,url):
     source = await discord.FFmpegOpusAudio.from_probe(url2,**FFMPEG_OPTIONS)
     ctx.author
     if(vc.is_playing() == False):
-      await ctx.send("En estos momentos esta sonando "+url)
       play = vc.play(source, after = lambda x=None: check_queue(ctx,1))
     else:
       queue.append(source)
