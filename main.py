@@ -3,8 +3,10 @@ from discord.ext import commands as commands
 from urllib import parse, request
 import re
 import discord
+from discord import FFmpegPCMAudio
 import youtube_dl
 
+dir_frases="Frases/"
 token = os.environ['Token']
 bot = commands.Bot(command_prefix ='ribot ')
 queue = []
@@ -30,6 +32,14 @@ def youtube(search):
 async def ping(ctx):
   print("pong")
   await ctx.send('pong')
+def filetowav(filename):
+  actual_filename = filename[:-4]
+  if(filename.endswith(".mp4")):
+      os.system('ffmpeg -i {} -acodec pcm_s16le -ar 16000 {}/{}.wav'.format(filename, dir_frases, actual_filename))
+  else:
+      pass
+
+  
 # comandos de voz
 @bot.command()
 async def entre(ctx):
@@ -45,8 +55,6 @@ async def entre(ctx):
 async def salgase(ctx):
   await ctx.voice_client.disconnect()
 
-
-
 @bot.command()
 async def coloque(ctx,*,url):
   vc = ctx.voice_client
@@ -59,22 +67,38 @@ async def coloque(ctx,*,url):
     info = ydl.extract_info(url,download=False)
     url2 = info['formats'][0]['url']
     source = await discord.FFmpegOpusAudio.from_probe(url2,**FFMPEG_OPTIONS)
-    queue.append(source)
-    try:
+    
+    if(vc.is_playing() == False):
       vc.play(source, after = lambda x=None: check_queue(ctx,1))
-    except:
+    else:
+      queue.append(source)
       await ctx.send("La cancion sonara despues")
     
 @bot.command()
 async def callese(ctx):
-  ctx.voice_client.stop()
+  ctx.voice_client.clear()
 @bot.command()
 async def espere(ctx):
   ctx.voice_client.pause()
 @bot.command()
 async def siga(ctx):
   ctx.voice_client.resume()
+#Bareto comandos
 
+@bot.command()
+async def diga(ctx,*,args):
+  vc = ctx.voice_client
+  if vc is None:
+    await ctx.send("Oiga animal no estoy en ningun canal de voz")
+    return
+  print(args)
+  source = FFmpegPCMAudio("")
+  if(vc.is_playing() == False):
+    vc.play(source, after = lambda x=None: check_queue(ctx,1))
+  else:
+    queue.append(source)
+    await ctx.send("La cancion sonara despues")
+    
 #Eventos
 @bot.event
 async def on_ready():
@@ -89,5 +113,6 @@ async def on_ready():
   #  await message.channel.send("Que paso perro hijueputa?")
  #await bot.process_commands(message)
 
+filetowav("Frases/mal amigo.mp4")
 bot.run(token)
 
