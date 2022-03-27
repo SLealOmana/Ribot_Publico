@@ -7,6 +7,7 @@ from discord import FFmpegPCMAudio
 import youtube_dl
 
 dir_frases="Frases/"
+wav=".wav"
 token = os.environ['Token']
 bot = commands.Bot(command_prefix ='ribot ')
 queue = []
@@ -93,12 +94,12 @@ async def diga(ctx,*,args):
     await ctx.send("Oiga animal no estoy en ningun canal de voz")
     return
   print(args)
-  source = FFmpegPCMAudio("")
+  source = FFmpegPCMAudio(dir_frases+"plante_perra"+wav)
   if(vc.is_playing() == False):
     vc.play(source, after = lambda x=None: check_queue(ctx,1))
   else:
     queue.append(source)
-    await ctx.send("La cancion sonara despues")
+    await ctx.send("lo digo despues perro")
     
 #Eventos
 @bot.event
@@ -114,6 +115,5 @@ async def on_ready():
   #  await message.channel.send("Que paso perro hijueputa?")
  #await bot.process_commands(message)
 
-filetowav(dir_frases,"plante_perra.mp4")
 bot.run(token)
 
