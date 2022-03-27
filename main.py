@@ -32,10 +32,11 @@ def youtube(search):
 async def ping(ctx):
   print("pong")
   await ctx.send('pong')
-def filetowav(filename):
+def filetowav(dir_frases,filename):
+  filename = dir_frases+filename
   actual_filename = filename[:-4]
   if(filename.endswith(".mp4")):
-      os.system('ffmpeg -i {} -acodec pcm_s16le -ar 16000 {}/{}.wav'.format(filename, dir_frases, actual_filename))
+      os.system('ffmpeg -i {} -acodec pcm_s16le -ar 16000 {}/{}.wav'.format(filename, "", actual_filename))
   else:
       pass
 
@@ -113,6 +114,6 @@ async def on_ready():
   #  await message.channel.send("Que paso perro hijueputa?")
  #await bot.process_commands(message)
 
-filetowav("Frases/plante_perra.mp4")
+filetowav(dir_frases,"plante_perra.mp4")
 bot.run(token)
 
