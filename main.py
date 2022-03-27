@@ -14,12 +14,12 @@ YDL_OPTIONS =  {'format':"bestaudio"}
 #Comandos
 # comandos varios
 def check_queue(ctx,arg):
-  if queue.len()!=0 and arg == 1:
+  if queue.qsize()!=0 and arg == 1:
     vc=ctx.voice_client
     source=queue.pop(0)
     vc.play(source)
-  elif queue.len()!=0 and arg == 0:
-    return queue.len()
+  elif queue.qsize()!=0 and arg == 0:
+    return queue.qsize()
     
 def youtube(search):
   query_string = parse.urlencode({'search_query':search})
