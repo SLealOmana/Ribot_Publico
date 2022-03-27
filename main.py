@@ -7,9 +7,20 @@ import youtube_dl
 
 token = os.environ['Token']
 bot = commands.Bot(command_prefix ='ribot ')
+queues = []
+FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5','options':'-vn'}
+YDL_OPTIONS =  {'format':"bestaudio"}
 
 #Comandos
 # comandos varios
+def check_queue(ctx,arg):
+  if queues.len()!=0 and arg == 1:
+    vc=ctx.voice_client
+    source=queues.pop(0)
+    vc.play(source)
+  elif queues.len()!=0 and arg == 0:
+    return queues.len()
+    
 def youtube(search):
   query_string = parse.urlencode({'search_query':search})
   html_content = request.urlopen('http://www.youtube.com/results?'+ query_string)
@@ -33,10 +44,11 @@ async def entre(ctx):
 @bot.command()
 async def salgase(ctx):
   await ctx.voice_client.disconnect()
+
+
+
 @bot.command()
 async def coloque(ctx,*,url):
-  FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5','options':'-vn'}
-  YDL_OPTIONS =  {'format':"bestaudio"}
   vc = ctx.voice_client
   if vc is None:
     await ctx.send("Oiga animal no estoy en ningun canal de voz")
@@ -47,8 +59,18 @@ async def coloque(ctx,*,url):
     info = ydl.extract_info(url,download=False)
     url2 = info['formats'][0]['url']
     source = await discord.FFmpegOpusAudio.from_probe(url2,**FFMPEG_OPTIONS)
-    vc.play(source)
+    queue.append(source)
+    vc.play(source, after = lambda x=None: check_queue(ctx))
     
+@bot.command()
+async def callese(ctx):
+  ctx.voice_client.stop()
+@bot.command()
+async def espere(ctx):
+  ctx.voice_client.pause()
+@bot.command()
+async def siga(ctx):
+  ctx.voice_client.resume()
 
 #Eventos
 @bot.event
@@ -65,3 +87,4 @@ async def on_ready():
  #await bot.process_commands(message)
 
 bot.run(token)
+
