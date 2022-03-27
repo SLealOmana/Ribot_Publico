@@ -35,7 +35,7 @@ async def salgase(ctx):
   await ctx.voice_client.disconnect()
 @bot.command()
 async def coloque(ctx,*,url):
-  FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -recconect_delay_max 5','options':'-vn'}
+  FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5','options':'-vn'}
   YDL_OPTIONS =  {'format':"bestaudio"}
   vc = ctx.voice_client
   if vc is None:
