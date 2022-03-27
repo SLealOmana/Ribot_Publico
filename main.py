@@ -113,6 +113,6 @@ async def on_ready():
   #  await message.channel.send("Que paso perro hijueputa?")
  #await bot.process_commands(message)
 
-filetowav("Frases/mal_amigo.mp4")
+filetowav("Frases/plante_perra.mp4")
 bot.run(token)
 
