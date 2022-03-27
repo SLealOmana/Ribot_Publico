@@ -9,10 +9,12 @@ import youtube_dl
 dir_frases="Frases/"
 wav=".wav"
 token = os.environ['Token']
+
 bot = commands.Bot(command_prefix ='ribot ')
-queue = []
+
 FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5','options':'-vn'}
 YDL_OPTIONS =  {'format':"bestaudio"}
+queue = []
 
 #Comandos
 # comandos varios
@@ -71,8 +73,9 @@ async def coloque(ctx,*,url):
     info = ydl.extract_info(url,download=False)
     url2 = info['formats'][0]['url']
     source = await discord.FFmpegOpusAudio.from_probe(url2,**FFMPEG_OPTIONS)
-    
+    ctx.author
     if(vc.is_playing() == False):
+      await ctx.send("En estos momentos esta sonando "+url)
       play = vc.play(source, after = lambda x=None: check_queue(ctx,1))
     else:
       queue.append(source)
@@ -107,15 +110,14 @@ async def diga(ctx,*,args):
 @bot.event
 async def on_ready():
   print("Que paso perro hijueputa {0.user}".format(bot))
-#@bot.event
-#
-#async def on_message(message):
-  
-  #if message.author == bot.user:
-    #return
- #if message.content.startswith("ribot"):
-  #  await message.channel.send("Que paso perro hijueputa?")
- #await bot.process_commands(message)
+@bot.event
+
+async def on_message(message):
+  if message.author == bot.user:
+    return
+ if message.content.startswith("ribot "):
+   #await message.channel.send("Que paso perro hijueputa?")
+    await bot.process_commands(message)
 
 bot.run(token)
 
