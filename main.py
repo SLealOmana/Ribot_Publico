@@ -17,6 +17,8 @@ YDL_OPTIONS =  {'format':"bestaudio"}
 #Comandos
 # comandos varios
 def check_queue(ctx,arg):
+  for i in queue:
+    print(i)
   if len(queue)!=0 and arg == 1:
     vc=ctx.voice_client
     source=queue.pop(0)
@@ -71,14 +73,14 @@ async def coloque(ctx,*,url):
     source = await discord.FFmpegOpusAudio.from_probe(url2,**FFMPEG_OPTIONS)
     
     if(vc.is_playing() == False):
-      vc.play(source, after = lambda x=None: check_queue(ctx,1))
+      play = vc.play(source, after = lambda x=None: check_queue(ctx,1))
     else:
       queue.append(source)
       await ctx.send("La cancion sonara despues")
     
 @bot.command()
 async def callese(ctx):
-  ctx.voice_client.clear()
+  ctx.voice_client.stop()
 @bot.command()
 async def espere(ctx):
   ctx.voice_client.pause()
