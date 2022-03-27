@@ -1,2 +1,5 @@
 discord.py
+urllib
+re
+youtube_dl
 python-dotenv
