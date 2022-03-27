@@ -76,7 +76,7 @@ async def coloque(ctx,*,url):
     source = await discord.FFmpegOpusAudio.from_probe(url2,**FFMPEG_OPTIONS)
     ctx.author
     if(vc.is_playing() == False):
-      play = vc.play(source, after = lambda x=None: check_queue(ctx,1))
+      await vc.play(source, after = lambda x=None: check_queue(ctx,1))
     else:
       queue.append(source)
       await ctx.send("La cancion sonara despues")
