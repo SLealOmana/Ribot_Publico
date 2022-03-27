@@ -18,7 +18,7 @@ queue = []
 
 #Comandos
 # comandos varios
-def check_queue(ctx,arg):
+async def check_queue(ctx,arg):
   for i in queue:
     print(i)
   if len(queue)!=0 and arg == 1:
