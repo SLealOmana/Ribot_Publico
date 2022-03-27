@@ -63,7 +63,7 @@ async def coloque(ctx,*,url):
     try:
       vc.play(source, after = lambda x=None: check_queue(ctx,1))
     except:
-      await message.channel.send("La cancion sonara despues")
+      await ctx.send("La cancion sonara despues")
     
 @bot.command()
 async def callese(ctx):
