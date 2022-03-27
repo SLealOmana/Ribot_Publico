@@ -33,8 +33,8 @@ async def ping(ctx):
   print("pong")
   await ctx.send('pong')
 def filetowav(dir_frases,filename):
-  #filename = dir_frases+filename
   actual_filename = filename[:-4]
+  filename = dir_frases+filename
   if(filename.endswith(".mp4")):
       os.system('ffmpeg -i {} -acodec pcm_s16le -ar 16000 {}/{}.wav'.format(filename, dir_frases, actual_filename))
   else:
