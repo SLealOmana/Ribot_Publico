@@ -60,7 +60,10 @@ async def coloque(ctx,*,url):
     url2 = info['formats'][0]['url']
     source = await discord.FFmpegOpusAudio.from_probe(url2,**FFMPEG_OPTIONS)
     queue.append(source)
-    vc.play(source, after = lambda x=None: check_queue(ctx,1))
+    try:
+      vc.play(source, after = lambda x=None: check_queue(ctx,1))
+    except:
+      await message.channel.send("La cancion sonara despues")
     
 @bot.command()
 async def callese(ctx):
