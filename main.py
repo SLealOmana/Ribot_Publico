@@ -7,19 +7,19 @@ import youtube_dl
 
 token = os.environ['Token']
 bot = commands.Bot(command_prefix ='ribot ')
-queues = []
+queue = []
 FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5','options':'-vn'}
 YDL_OPTIONS =  {'format':"bestaudio"}
 
 #Comandos
 # comandos varios
 def check_queue(ctx,arg):
-  if queues.len()!=0 and arg == 1:
+  if queue.len()!=0 and arg == 1:
     vc=ctx.voice_client
-    source=queues.pop(0)
+    source=queue.pop(0)
     vc.play(source)
-  elif queues.len()!=0 and arg == 0:
-    return queues.len()
+  elif queue.len()!=0 and arg == 0:
+    return queue.len()
     
 def youtube(search):
   query_string = parse.urlencode({'search_query':search})
