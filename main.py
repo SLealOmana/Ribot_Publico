@@ -115,7 +115,7 @@ async def on_ready():
 async def on_message(message):
   if message.author == bot.user:
     return
- if message.content.startswith("ribot "):
+  if message.content.startswith("ribot "):
    #await message.channel.send("Que paso perro hijueputa?")
     await bot.process_commands(message)
 
