@@ -75,7 +75,7 @@ def filetowav(dir_frases,filename):
 # comandos de voz
 @bot.command()
 async def entre(ctx):
-   print(ctx)
+  print(ctx)
   if(ctx.author.voice is None):
     await ctx.send("Primero unase a un canal de voz sapohijueputa")
     return
