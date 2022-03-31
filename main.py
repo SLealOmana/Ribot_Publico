@@ -125,9 +125,9 @@ async def siga(ctx):
 async def inTwichDiscord(ctx,url):
   channel_id = 782349541454118914
   guild_id = 404709579281268767
-  vc = bot.get_guild(guild_id).get_channel(channel_id)
+  voice_channel = bot.get_guild(guild_id).get_channel(channel_id)
   if(bot.get_guild(guild_id).voice_client is None):
-    await vc.connect()
+    await voice_channel.connect()
   else:
     await bot.get_guild(guild_id).voice_client.move_to(vc)
   print(url)
@@ -136,6 +136,7 @@ async def inTwichDiscord(ctx,url):
     info = ydl.extract_info(url,download=False)
     url2 = info['formats'][0]['url']
     source = await discord.FFmpegOpusAudio.from_probe(url2,**FFMPEG_OPTIONS)
+    vc: discord.VoiceClient = bot.utils.get(bot.voice_clients, guild=guild)
     if(vc.is_playing() == False):
       await ctx.channel.send("En estos momentos esta sonando "+url)
       vc.play(source)
