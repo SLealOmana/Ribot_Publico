@@ -9,9 +9,10 @@ import youtube_dl
 from twitchio.ext import commands as tw
 
 bot_token = "oauth:d7fa4uz8ce8lntcjlfff3my6q1la2y"
-
+def goto(linenum):
+    global line
+    line = linenum
 class Bot(tw.Bot):
-
     def __init__(self):
         super().__init__(token=bot_token, prefix='!', initial_channels=['SBX13',"mistgunop"])
 
@@ -27,6 +28,8 @@ class Bot(tw.Bot):
           await ctx.channel.send(f"Hola @{ctx.author.name}!")
         if("custom-reward-id=9864eed5-5d8c-4189-8712-80ce750a5362" in ctx.raw_data):
           url=ctx.content
+          inTwichDiscord(ctx,url)
+          
 
 
 dir_frases="Frases/"
@@ -118,6 +121,28 @@ async def espere(ctx):
 async def siga(ctx):
   ctx.voice_client.resume()
 #Bareto comandos
+@bot.command()
+async def inTwichDiscord(ctx,url):
+  channel_id = 782349541454118914
+  guild_id = 404709579281268767
+  vc = bot.get_guild(guild_id).get_channel(channel_id)
+  if(bot.get_guild(guild_id).voice_client is None):
+    await vc.connect()
+  else:
+    await bot.get_guild(guild_id).voice_client.move_to(vc)
+  print(url)
+  url = youtube(url)
+  with youtube_dl.YoutubeDL(YDL_OPTIONS) as ydl:
+    info = ydl.extract_info(url,download=False)
+    url2 = info['formats'][0]['url']
+    source = await discord.FFmpegOpusAudio.from_probe(url2,**FFMPEG_OPTIONS)
+    if(vc.is_playing() == False):
+      await ctx.channel.send("En estos momentos esta sonando "+url)
+      vc.play(source)
+    else:
+      await ctx.channel.send("Espera a que acabe la anterior, tus putnos se perdieron >:c")
+    
+#######################################################################
 
 @bot.command()
 async def diga(ctx,*,args):
@@ -142,31 +167,14 @@ async def on_message(message):
   if message.author == bot.user:
     return
   if message.content.startswith("ribot "):
+    print(bot.guilds)
    #await message.channel.send("Que paso perro hijueputa?")
     await bot.process_commands(message)
+
+print(bot.guilds)
 bot.run(token)
+
 #######################################################################
 #Implemetacion twich
-async def inTwichDiscord(ctx,url):
-  channel_id = 782350228233519155
-  vc = ctx.get_channel(channel_id)
-  if(ctx.voice_client is None):
-    await vc.connect()
-  else:
-    await ctx.voice_client.move_to(vc)
-  print(url)
-  url = youtube(url)
-  with youtube_dl.YoutubeDL(YDL_OPTIONS) as ydl:
-    info = ydl.extract_info(url,download=False)
-    url2 = info['formats'][0]['url']
-    source = await discord.FFmpegOpusAudio.from_probe(url2,**FFMPEG_OPTIONS)
-    if(vc.is_playing() == False):
-      await ctx.send("En estos momentos esta sonando "+url)
-      vc.play(source)
-    else:
-      queue.append(source)
-      await ctx.send("La cancion sonara despues")
-    
-#######################################################################
 ritwich = Bot()
 ritwich.run()
