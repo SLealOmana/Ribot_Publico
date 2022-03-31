@@ -28,7 +28,7 @@ class Bot(tw.Bot):
           await ctx.channel.send(f"Hola @{ctx.author.name}!")
         if("custom-reward-id=9864eed5-5d8c-4189-8712-80ce750a5362" in ctx.raw_data):
           url=ctx.content
-          inTwichDiscord(ctx,url)
+          await inTwichDiscord(ctx,url)
           
 
 
@@ -174,7 +174,6 @@ async def on_message(message):
 
 print(bot.guilds)
 #bot.run(token)
-
 #######################################################################
 #Implemetacion twich
 ritwich = Bot()
