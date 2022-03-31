@@ -5,18 +5,43 @@ import re
 import discord
 from discord import FFmpegPCMAudio
 import youtube_dl
+#import ritwitch as rt
+from twitchio.ext import commands as tw
+
+bot_token = "oauth:d7fa4uz8ce8lntcjlfff3my6q1la2y"
+
+class Bot(tw.Bot):
+
+    def __init__(self):
+        super().__init__(token=bot_token, prefix='!', initial_channels=['SBX13',"mistgunop"])
+
+    async def event_ready(self):
+        print(f'Logged in as | {self.nick}')
+
+    async def event_message(self, ctx):
+        if ctx.echo: 
+            return
+        
+        print(f"[{ctx.channel.name}] {ctx.author.name}:{ctx.content}")
+        if('hola' in ctx.raw_data):
+          await ctx.channel.send(f"Hola @{ctx.author.name}!")
+        if("custom-reward-id=9864eed5-5d8c-4189-8712-80ce750a5362" in ctx.raw_data):
+          url=ctx.content
+
 
 dir_frases="Frases/"
 wav=".wav"
 token = os.environ['Token']
-
 bot = commands.Bot(command_prefix ='ribot ')
-
 FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5','options':'-vn'}
 YDL_OPTIONS =  {'format':"bestaudio"}
 queue = []
 
 #Comandos
+
+
+ #<discord.player.FFmpegOpusAudio object at 0x7fde7868daf0>
+
 # comandos varios
 def check_queue(ctx,arg):
   for i in queue:
@@ -74,7 +99,6 @@ async def coloque(ctx,*,url):
     info = ydl.extract_info(url,download=False)
     url2 = info['formats'][0]['url']
     source = await discord.FFmpegOpusAudio.from_probe(url2,**FFMPEG_OPTIONS)
-    ctx.author
     if(vc.is_playing() == False):
       await ctx.send("En estos momentos esta sonando "+url)
       vc.play(source, after = lambda x=None: check_queue(ctx,1))
@@ -96,11 +120,12 @@ async def siga(ctx):
 @bot.command()
 async def diga(ctx,*,args):
   vc = ctx.voice_client
+  print(ctx)
   if vc is None:
     await ctx.send("Oiga animal no estoy en ningun canal de voz")
     return
-  print(args)
-  source = FFmpegPCMAudio(dir_frases+"plante_perra"+wav)
+  
+    source = FFmpegPCMAudio(dir_frases+"plante_perra"+wav)
   if(vc.is_playing() == False):
     vc.play(source, after = lambda x=None: check_queue(ctx,1))
   else:
@@ -112,13 +137,35 @@ async def diga(ctx,*,args):
 async def on_ready():
   print("Que paso perro hijueputa {0.user}".format(bot))
 @bot.event
-
 async def on_message(message):
   if message.author == bot.user:
     return
   if message.content.startswith("ribot "):
    #await message.channel.send("Que paso perro hijueputa?")
     await bot.process_commands(message)
-
 bot.run(token)
-
+#######################################################################
+#Implemetacion twich
+async def inTwichDiscord(ctx,url):
+  channel_id = 782350228233519155
+  vc = ctx.get_channel(channel_id)
+  if(ctx.voice_client is None):
+    await vc.connect()
+  else:
+    await ctx.voice_client.move_to(vc)
+  print(url)
+  url = youtube(url)
+  with youtube_dl.YoutubeDL(YDL_OPTIONS) as ydl:
+    info = ydl.extract_info(url,download=False)
+    url2 = info['formats'][0]['url']
+    source = await discord.FFmpegOpusAudio.from_probe(url2,**FFMPEG_OPTIONS)
+    if(vc.is_playing() == False):
+      await ctx.send("En estos momentos esta sonando "+url)
+      vc.play(source)
+    else:
+      queue.append(source)
+      await ctx.send("La cancion sonara despues")
+    
+#######################################################################
+ritwich = Bot()
+ritwich.run()
