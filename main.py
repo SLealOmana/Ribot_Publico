@@ -173,7 +173,7 @@ async def on_message(message):
     await bot.process_commands(message)
 
 print(bot.guilds)
-bot.run(token)
+#bot.run(token)
 
 #######################################################################
 #Implemetacion twich
