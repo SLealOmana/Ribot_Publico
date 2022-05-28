@@ -93,6 +93,7 @@ async def siga(ctx):
   ctx.voice_client.resume()
 #Bareto comandos
 
+
 @bot.command()
 async def diga(ctx,*,args):
   vc = ctx.voice_client
