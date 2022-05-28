@@ -90,6 +90,9 @@ async def espere(ctx):
   ctx.voice_client.pause()
 @bot.command()
 async def siga(ctx):
+
+
+  
   ctx.voice_client.resume()
 #Bareto comandos
 @bot.command()
