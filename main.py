@@ -99,8 +99,10 @@ async def diga(ctx,*,args):
   if vc is None:
     await ctx.send("Oiga animal no estoy en ningun canal de voz")
     return
-  print(args)
-  source = FFmpegPCMAudio(dir_frases+"plante_perra"+wav)
+  if 'plante' in args:
+    source = FFmpegPCMAudio(dir_frases+"plante_perra"+wav)
+  elif 'horario' in args:
+    source = FFmpegPCMAudio(dir_frases+"horario_naujotil"+wav)
   if(vc.is_playing() == False):
     vc.play(source, after = lambda x=None: check_queue(ctx,1))
   else:
