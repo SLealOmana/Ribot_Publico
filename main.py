@@ -81,7 +81,19 @@ async def coloque(ctx,*,url):
     else:
       queue.append(source)
       await ctx.send("La cancion sonara despues")
-    
+@bot.command()
+async def pase(ctx,*,args):
+  try:
+      from googlesearch import search
+  except ImportError:
+      print("No module named 'google' found")
+   
+  # to search
+  query = args
+  for j in search(query, tld="co.in", num=5, stop=5, pause=2):
+      await ctx.send(j)
+
+     
 @bot.command()
 async def callese(ctx):
   ctx.voice_client.stop()
@@ -89,10 +101,7 @@ async def callese(ctx):
 async def espere(ctx):
   ctx.voice_client.pause()
 @bot.command()
-async def siga(ctx):
-
-
-  
+async def siga(ctx): 
   ctx.voice_client.resume()
 #Bareto comandos
 @bot.command()
