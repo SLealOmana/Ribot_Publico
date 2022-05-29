@@ -83,17 +83,12 @@ async def coloque(ctx,*,url):
       await ctx.send("La cancion sonara despues")
 @bot.command()
 async def pase(ctx,*,args):
-  try:
-      from googlesearch import search
-  except ImportError:
-      print("No module named 'google' found")
-   
-  # to search
+  from googlesearch import search
   query = args
   for j in search(query, tld="co.in", num=5, stop=5, pause=2):
       await ctx.send(j)
 @bot.command()
-async def lulu(ctx,*,args):
+async def lulu(ctx):
   lulu = "https://www.lolhentai.net/index?/category/lulu"
   await ctx.send(lulu)
      
