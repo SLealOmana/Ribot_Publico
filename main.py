@@ -85,8 +85,7 @@ async def coloque(ctx,*,url):
 async def pase(ctx,*,args):
   from googlesearch import search
   query = args
-  for j in search(query, tld="co.in", num=5, stop=5, pause=2):
-      await ctx.send(j)
+  await ctx.send( search(query))
 @bot.command()
 async def lulu(ctx):
   lulu = "https://www.lolhentai.net/index?/category/lulu"
