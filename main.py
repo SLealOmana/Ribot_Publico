@@ -92,7 +92,10 @@ async def pase(ctx,*,args):
   query = args
   for j in search(query, tld="co.in", num=5, stop=5, pause=2):
       await ctx.send(j)
-
+@bot.command()
+async def lulu(ctx,*,args):
+  lulu = "https://www.lolhentai.net/index?/category/lulu"
+  await ctx.send(lulu)
      
 @bot.command()
 async def callese(ctx):
