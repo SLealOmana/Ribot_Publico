@@ -10,7 +10,7 @@ dir_frases="Frases/"
 wav=".wav"
 token = os.environ['Token']
 
-bot = commands.Bot(command_prefix ='ribot ')
+bot = commands.Bot(command_prefix ='baretobot ')
 
 FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5','options':'-vn'}
 YDL_OPTIONS =  {'format':"bestaudio"}
@@ -34,6 +34,8 @@ def youtube(search):
   html_content = request.urlopen('https://www.youtube.com/results?'+ query_string)
   search_results = re.findall( r"watch\?v=(\S{11})", html_content.read().decode())
   return "https://www.youtube.com/watch?v="+search_results[0]
+
+  
 @bot.command()
 async def ping(ctx):
   print("pong")
