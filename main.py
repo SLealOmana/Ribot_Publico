@@ -89,7 +89,7 @@ async def pase(ctx,*,args):
       print("No module named 'google' found")
   # to search
   query = args
-  for j in search(query, tld="co.in", num=5, stop=5, pause=2):
+  for j in search(query, num=5, stop=5, pause=2):
       await ctx.send(j)
 @bot.command()
 async def lulu(ctx):
