@@ -10,7 +10,7 @@ dir_frases="Frases/"
 wav=".wav"
 token = os.environ['Token']
 
-bot = commands.Bot(command_prefix ='baretobot ')
+bot = commands.Bot(command_prefix ='- ')
 
 FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5','options':'-vn'}
 YDL_OPTIONS =  {'format':"bestaudio"}
