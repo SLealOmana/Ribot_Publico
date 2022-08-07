@@ -118,6 +118,10 @@ async def diga(ctx,*,args):
     source = FFmpegPCMAudio(dir_frases+"plante_perra"+wav)
   elif 'horario' in args:
     source = FFmpegPCMAudio(dir_frases+"horario_naujotil"+wav)
+  elif 'aprenda a contar' in args:
+    source = FFmpegPCMAudio(dir_frases+"aprenda_a_contar"+wav)
+  elif '10 pendejadas' in args:
+    source = FFmpegPCMAudio(dir_frases+"pendejadas"+wav)
   if(vc.is_playing() == False):
     vc.play(source, after = lambda x=None: check_queue(ctx,1))
   else:
