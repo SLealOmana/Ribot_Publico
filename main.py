@@ -137,13 +137,12 @@ async def on_ready():
 async def on_message(message):
   if message.author == bot.user:
     return
-  #if message.author.contains("49"):
-   # await message.channel.send(message.author+" Haga silencio porfavor")
+  if "49" in message.author.name:
+    await message.channel.send(message.author+" Haga silencio porfavor")
     #return
   if message.content.startswith("- "):
     
-    await message.channel.send(message.author)
-   #await message.channel.send("Que paso perro hijueputa?")
+    #await message.channel.send("Que paso perro hijueputa?")
     await bot.process_commands(message)
 
 bot.run(token)
