@@ -143,6 +143,7 @@ async def on_message(message):
   if message.content.startswith("- "):
    #await message.channel.send("Que paso perro hijueputa?")
     await bot.process_commands(message)
+    await message.channel.send(message.author)
 
 bot.run(token)
 
