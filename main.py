@@ -137,9 +137,9 @@ async def on_ready():
 async def on_message(message):
   if message.author == bot.user:
     return
-  if message.author.contains("49"):
-    await message.channel.send(message.author+" Haga silencio porfavor")
-    return
+  #if message.author.contains("49"):
+   # await message.channel.send(message.author+" Haga silencio porfavor")
+    #return
   if message.content.startswith("- "):
     
     await message.channel.send(message.author)
