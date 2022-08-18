@@ -138,7 +138,7 @@ async def on_message(message):
   if message.author == bot.user:
     return
   if "49" in message.author.name:
-    await message.channel.send(message.author+" Haga silencio porfavor")
+    await message.channel.send(message.author.name+" Haga silencio porfavor")
     #return
   if message.content.startswith("- "):
     
