@@ -127,7 +127,17 @@ async def diga(ctx,*,args):
   else:
     queue.append(source)
     await ctx.send("lo digo despues perro")
-    
+
+@bot.command()
+async def uwu(ctx,*,args):
+  vc = ctx.voice_client
+  if vc is None:
+    return
+  
+  source = FFmpegPCMAudio(dir_frases+"uwu"+wav)
+  if(vc.is_playing() == False):
+    vc.play(source, after = lambda x=None: check_queue(ctx,1))
+  await ctx.voice_client.disconnect()
 #Eventos
 @bot.event
 async def on_ready():
@@ -138,6 +148,11 @@ async def on_message(message):
   if message.author == bot.user:
     return
   if "49" in message.author.name:
+    await message.channel.send(message.author.name+" Haga silencio porfavor")
+    #return
+  if "uwu" in message.content:
+    message.content="- diga uwu"
+    await bot.process_commands(message)
     await message.channel.send(message.author.name+" Haga silencio porfavor")
     #return
   if message.content.startswith("- "):
