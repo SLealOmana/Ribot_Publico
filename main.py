@@ -155,7 +155,7 @@ async def on_message(message):
     await message.channel.send(message.author.name+" Haga silencio porfavor")
     #return
   if "uwu" in message.content:
-    message.content="- diga uwu"
+    message.content="- uwu"
     await bot.process_commands(message)
     return
   if message.content.startswith("- "):
