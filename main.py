@@ -16,8 +16,8 @@ FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconne
 YDL_OPTIONS =  {'format':"bestaudio"}
 queue = []
 
-#Comandos
-# comandos varios
+#Comandoss
+# comandos varioss
 def check_queue(ctx,arg):
   for i in queue:
     print(i)
@@ -89,7 +89,7 @@ async def pase(ctx,*,args):
       from googlesearch import search
   except ImportError:
       print("No module named 'google' found")
-  # to search
+  # to searcha
   query = args
   for j in search(query, num_results=5):
       await ctx.send(j)
@@ -107,7 +107,7 @@ async def espere(ctx):
 @bot.command()
 async def siga(ctx): 
   ctx.voice_client.resume()
-#Bareto comandos
+#Bareto comandosddd
 @bot.command()
 async def diga(ctx,*,args):
   vc = ctx.voice_client
@@ -129,7 +129,7 @@ async def diga(ctx,*,args):
     await ctx.send("lo digo despues perro")
 
 @bot.command()
-async def uwu(ctx,*,args):
+async def uwu(ctx):
   vc = ctx.voice_client
   if vc is None:
     return
