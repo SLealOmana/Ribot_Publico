@@ -130,14 +130,11 @@ async def diga(ctx,*,args):
 
 @bot.command()
 async def uwu(ctx):
-  vc = ctx.voice_client
-  if vc is None:
-    return
-  voice_channel = ctx.author.voice.channel
+  vc = ctx.author.voice.channel
   if(ctx.voice_client is None):
-    await voice_channel.connect()
+    await vc.connect()
   else:
-    await ctx.voice_client.move_to(voice_channel)
+    await ctx.voice_client.move_to(vc)
   source = FFmpegPCMAudio(dir_frases+"uwu"+wav)
   if(vc.is_playing() == False):
     vc.play(source, after = lambda x=None: check_queue(ctx,1))
