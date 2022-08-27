@@ -133,7 +133,11 @@ async def uwu(ctx,*,args):
   vc = ctx.voice_client
   if vc is None:
     return
-  
+  voice_channel = ctx.author.voice.channel
+  if(ctx.voice_client is None):
+    await voice_channel.connect()
+  else:
+    await ctx.voice_client.move_to(voice_channel)
   source = FFmpegPCMAudio(dir_frases+"uwu"+wav)
   if(vc.is_playing() == False):
     vc.play(source, after = lambda x=None: check_queue(ctx,1))
@@ -153,10 +157,8 @@ async def on_message(message):
   if "uwu" in message.content:
     message.content="- diga uwu"
     await bot.process_commands(message)
-    await message.channel.send(message.author.name+" Haga silencio porfavor")
-    #return
+    return
   if message.content.startswith("- "):
-    
     #await message.channel.send("Que paso perro hijueputa?")
     await bot.process_commands(message)
 
