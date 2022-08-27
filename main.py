@@ -139,7 +139,6 @@ async def uwu(ctx):
   source = FFmpegPCMAudio(dir_frases+"uwu"+wav)
   if(vc.is_playing() == False):
     vc.play(source, after = lambda x=None: check_queue(ctx,1))
-  await ctx.voice_client.disconnect()
 #Eventos
 @bot.event
 async def on_ready():
