@@ -127,7 +127,18 @@ async def diga(ctx,*,args):
   else:
     queue.append(source)
     await ctx.send("lo digo despues perro")
-
+@bot.command()
+async def wasted(ctx):
+  vc1 = ctx.author.voice.channel
+  if(ctx.voice_client is None):
+    await vc1.connect()
+  else:
+    await ctx.voice_client.move_to(vc1)
+  vc = ctx.voice_client
+  source = FFmpegPCMAudio(dir_frases+"wasted"+wav)
+  if(vc.is_playing() == False):
+    vc.play(source, after = lambda x=None: check_queue(ctx,1))
+#Eventos
 @bot.command()
 async def uwu(ctx):
   vc1 = ctx.author.voice.channel
@@ -154,6 +165,10 @@ async def on_message(message):
   if "uwu" in message.content:
     message.content="- uwu"
     await bot.process_commands(message)
+  if "wasted" in message.content:
+    message.content="- wasted"
+    await bot.process_commands(message)
+  
     return
   if message.content.startswith("- "):
     #await message.channel.send("Que paso perro hijueputa?")
