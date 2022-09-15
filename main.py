@@ -191,7 +191,7 @@ async def ssbk(ctx):
         await ctx.voice_client.move_to(vc1)
     vc = ctx.voice_client
     source = FFmpegPCMAudio(dir_frases + "ssbka" + wav)
-    if (vc.is_playing == False):
+    if (vc.is_playing() == False):
         vc.play(source, after=lambda x=None: check_queue(ctx, 1))
 
 @bot.command()
@@ -203,7 +203,7 @@ async def nsabmos(ctx):
         await ctx.voice_client.move_to(vc1)
     vc = ctx.voice_client
     source = FFmpegPCMAudio(dir_frases + "nuncasabremos" + wav)
-    if (vc.is_playing == False):
+    if (vc.is_playing() == False):
         vc.play(source, after=lambda x=None: check_queue(ctx, 1))
 
 
@@ -218,9 +218,8 @@ async def on_message(message):
     if message.author == bot.user:
         return
     if "49" in message.author.name:
-        await message.channel.send(message.author.name +
-                                   " Haga silencio porfavor")
-        #return
+        await message.channel.send(message.author.name + " Haga silencio porfavor")
+       #return
     if "uwu" in message.content:
         message.content = "- uwu"
         await bot.process_commands(message)
