@@ -205,8 +205,28 @@ async def nsabmos(ctx):
     source = FFmpegPCMAudio(dir_frases + "nuncasabremos" + wav)
     if (vc.is_playing() == False):
         vc.play(source, after=lambda x=None: check_queue(ctx, 1))
-
-
+@bot.command()
+async def araara(ctx):
+    vc1 = ctx.author.voice.channel
+    if (ctx.voice_client is None):
+        await vc1.connect()
+    else:
+        await ctx.voice_client.move_to(vc1)
+    vc = ctx.voice_client
+    source = FFmpegPCMAudio(dir_frases + "ara-ara" + wav)
+    if (vc.is_playing() == False):
+        vc.play(source, after=lambda x=None: check_queue(ctx, 1))
+@bot.command()
+async def yamete(ctx):
+    vc1 = ctx.author.voice.channel
+    if (ctx.voice_client is None):
+        await vc1.connect()
+    else:
+        await ctx.voice_client.move_to(vc1)
+    vc = ctx.voice_client
+    source = FFmpegPCMAudio(dir_frases + "yamete" + wav)
+    if (vc.is_playing() == False):
+        vc.play(source, after=lambda x=None: check_queue(ctx, 1))
 #Eventos
 @bot.event
 async def on_ready():
@@ -214,6 +234,7 @@ async def on_ready():
 
 
 @bot.event
+
 async def on_message(message):
     if message.author == bot.user:
         return
@@ -231,6 +252,12 @@ async def on_message(message):
         await bot.process_commands(message)
     if "nunca" in message.content:
         message.content = "- nsabmos"
+        await bot.process_commands(message)
+    if "ara" in message.content:
+        message.content = "- araara"
+        await bot.process_commands(message)
+    if "yamete kudasai" in message.content:
+        message.content = "- yamete"
         await bot.process_commands(message)
         return
     if message.content.startswith("- "):
